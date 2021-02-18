@@ -1,0 +1,18 @@
+.app-header {
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  align-items: flex-end;
+}
+
+.app-header__title {
+  font-size: 4rem;
+  font-weight: 500;
+  line-height: 1.2;
+  flex-grow: 1;
+}
+
+.app-header__subtitle {
+  font-size: 1.9rem;
+  color: #808080;
+}
