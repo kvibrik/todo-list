@@ -8,7 +8,7 @@ const TodoList = ({ todos }) => {
   const elements = todos.map(item => {
     const { id, ...itemProps } = item;
     return (
-      <li className="todo-list__item" key={id}>
+      <li className="todo-list__group" key={id}>
         <TodoListItem {...itemProps} />
       </li>
     );
