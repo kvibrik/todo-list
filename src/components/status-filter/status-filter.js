@@ -11,7 +11,7 @@ export default class StatusFilter extends Component {
   render() {
     const buttons = this.buttons.map(({ name, label }) => {
       return (
-        <button className="button" type="button" key={name}>
+        <button className="button button_non-active" type="button" key={name}>
           {label}
         </button>
       );
