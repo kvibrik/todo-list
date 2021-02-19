@@ -26,6 +26,20 @@ export default class App extends Component {
       this.createTodoItem('Remake todo-list with MobX'),
     ],
   };
+  // функция удаления элемента из списка
+  deleteItem = id => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex(el => el.id === id);
+      const newTodoData = [
+        ...todoData.slice(0, idx),
+        ...todoData.slice(idx + 1),
+      ];
+
+      return {
+        todoData: newTodoData,
+      };
+    });
+  };
 
   render() {
     const todoItems = this.state.todoData;
@@ -37,7 +51,7 @@ export default class App extends Component {
           <SearchPanel />
           <StatusFilter />
         </div>
-        <TodoList todos={todoItems} />
+        <TodoList todos={todoItems} onDeleted={this.deleteItem} />
       </div>
     );
   }
