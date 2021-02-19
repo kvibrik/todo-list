@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import StatusFilter from '../status-filter';
+import TodoList from '../todo-list';
 
 import './App.scss';
 
@@ -15,6 +16,7 @@ export default class App extends Component {
           <SearchPanel />
           <StatusFilter />
         </div>
+        <TodoList />
       </div>
     );
   }
