@@ -41,6 +41,22 @@ export default class App extends Component {
     });
   };
 
+  toggleProp = (arr, id, propName) => {
+    const idx = arr.findIndex(el => el.id === id);
+    const oldItem = arr[idx];
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+
+    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
+  };
+
+  onToggleImportant = id => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProp(todoData, id, 'important'),
+      };
+    });
+  };
+
   render() {
     const todoItems = this.state.todoData;
 
@@ -51,7 +67,11 @@ export default class App extends Component {
           <SearchPanel />
           <StatusFilter />
         </div>
-        <TodoList todos={todoItems} onDeleted={this.deleteItem} />
+        <TodoList
+          todos={todoItems}
+          onDeleted={this.deleteItem}
+          onToggleImportant={this.onToggleImportant}
+        />
       </div>
     );
   }

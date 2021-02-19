@@ -4,13 +4,17 @@ import './todo-list.scss';
 
 import TodoListItem from '../todo-list-item';
 
-const TodoList = ({ todos, onDeleted }) => {
+const TodoList = ({ todos, onDeleted, onToggleImportant }) => {
   // формируем разметку из каждой задачи в массиве todos
   const elements = todos.map(item => {
     const { id, ...itemProps } = item;
     return (
       <li className="todo-list__group" key={id}>
-        <TodoListItem {...itemProps} onDeleted={() => onDeleted(id)} />
+        <TodoListItem
+          {...itemProps}
+          onDeleted={() => onDeleted(id)}
+          onToggleImportant={() => onToggleImportant(id)}
+        />
       </li>
     );
   });

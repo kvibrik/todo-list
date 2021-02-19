@@ -4,7 +4,7 @@ import './todo-list-item.scss';
 
 export default class TodoListItem extends Component {
   render() {
-    const { label, important, done, onDeleted } = this.props;
+    const { label, important, done, onDeleted, onToggleImportant } = this.props;
     let classNames = 'todo-list__item';
     // выделяем стилями, если пункт выполнен
     if (done) {
@@ -26,7 +26,8 @@ export default class TodoListItem extends Component {
         </button>
         <button
           className="button button_non-padding button_green"
-          type="button">
+          type="button"
+          onClick={onToggleImportant}>
           <i className="bi bi-exclamation"></i>
         </button>
       </span>
