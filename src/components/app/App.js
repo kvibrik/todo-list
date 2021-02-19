@@ -67,10 +67,13 @@ export default class App extends Component {
 
   render() {
     const todoItems = this.state.todoData;
+    const { todoData } = this.state;
+
+    const doneCount = todoData.filter(el => el.done).length;
 
     return (
       <div className="app">
-        <AppHeader />
+        <AppHeader done={doneCount} />
         <div className="top-panel">
           <SearchPanel />
           <StatusFilter />
