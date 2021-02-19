@@ -57,6 +57,14 @@ export default class App extends Component {
     });
   };
 
+  onToggleDone = id => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProp(todoData, id, 'done'),
+      };
+    });
+  };
+
   render() {
     const todoItems = this.state.todoData;
 
@@ -71,6 +79,7 @@ export default class App extends Component {
           todos={todoItems}
           onDeleted={this.deleteItem}
           onToggleImportant={this.onToggleImportant}
+          onToggleDone={this.onToggleDone}
         />
       </div>
     );

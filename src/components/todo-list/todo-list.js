@@ -4,7 +4,7 @@ import './todo-list.scss';
 
 import TodoListItem from '../todo-list-item';
 
-const TodoList = ({ todos, onDeleted, onToggleImportant }) => {
+const TodoList = ({ todos, onDeleted, onToggleImportant, onToggleDone }) => {
   // формируем разметку из каждой задачи в массиве todos
   const elements = todos.map(item => {
     const { id, ...itemProps } = item;
@@ -14,6 +14,7 @@ const TodoList = ({ todos, onDeleted, onToggleImportant }) => {
           {...itemProps}
           onDeleted={() => onDeleted(id)}
           onToggleImportant={() => onToggleImportant(id)}
+          onToggleDone={() => onToggleDone(id)}
         />
       </li>
     );
