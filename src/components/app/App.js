@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // Components
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
+import StatusFilter from '../status-filter';
 
 import './App.scss';
 
@@ -12,6 +13,7 @@ export default class App extends Component {
         <AppHeader />
         <div className="top-panel">
           <SearchPanel />
+          <StatusFilter />
         </div>
       </div>
     );
