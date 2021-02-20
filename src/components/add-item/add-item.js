@@ -5,11 +5,11 @@ export default class AddItem extends Component {
   state = {
     label: '',
   };
-
+  // делаем инпут управляемым
   onLabelChange = e => {
     this.setState({ label: e.target.value });
   };
-
+  // отправляем данные из стейта в родителю
   onSubmit = e => {
     e.preventDefault();
     if (this.state.label) {

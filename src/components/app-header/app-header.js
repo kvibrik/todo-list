@@ -1,3 +1,4 @@
+// компонент для вывода кол-ва оставшихся и выполненных задач
 import React from 'react';
 import './app-header.scss';
 

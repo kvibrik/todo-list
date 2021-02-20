@@ -1,3 +1,4 @@
+// компонент для фильтрации задач: all - все, active - не выполненные, done - выполненные
 import React, { Component } from 'react';
 import './status-filter.scss';
 

@@ -1,3 +1,4 @@
+// компонент поиска задач из списка по текстовому запросу
 import React, { Component } from 'react';
 import './search-panel.scss';
 

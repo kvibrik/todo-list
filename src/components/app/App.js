@@ -92,11 +92,11 @@ export default class App extends Component {
         return items;
     }
   };
-
+  // изменение стейта при смене фильтра
   onFilterChange = filter => {
     this.setState({ filter });
   };
-
+  // функция добавления новой задачи
   addItem = label => {
     const newItem = this.createTodoItem(label);
 
@@ -116,8 +116,8 @@ export default class App extends Component {
       this.searchItems(todoData, term),
       filter,
     );
-    const doneCount = todoData.filter(el => el.done).length;
-    const todoCount = todoData.length - doneCount;
+    const doneCount = todoData.filter(el => el.done).length; //считаем, сколько задач выполнено
+    const todoCount = todoData.length - doneCount; //считаем, сколько задач осталось сделать
 
     return (
       <div className="app">
