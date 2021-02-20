@@ -25,6 +25,8 @@ export default class App extends Component {
       this.createTodoItem('Send todo-list to ApriCode'),
       this.createTodoItem('Remake todo-list with MobX'),
     ],
+    term: '',
+    filter: 'all',
   };
   // функция удаления элемента из списка
   deleteItem = id => {
@@ -40,7 +42,7 @@ export default class App extends Component {
       };
     });
   };
-
+  // функция-обертка для маркировки состояний задачи
   toggleProp = (arr, id, propName) => {
     const idx = arr.findIndex(el => el.id === id);
     const oldItem = arr[idx];
@@ -48,7 +50,7 @@ export default class App extends Component {
 
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
   };
-
+  // отметка заддачи как важной
   onToggleImportant = id => {
     this.setState(({ todoData }) => {
       return {
@@ -56,7 +58,7 @@ export default class App extends Component {
       };
     });
   };
-
+  // отметка о выполнении задачи
   onToggleDone = id => {
     this.setState(({ todoData }) => {
       return {
@@ -64,11 +66,39 @@ export default class App extends Component {
       };
     });
   };
+  // изменение стейта поисковой строки term
+  onSearchChange = term => {
+    this.setState({ term });
+  };
+  // поиск подходящих задач под поисковый запрос
+  searchItems = (items, term) => {
+    if (!term.length) return items;
+
+    return items.filter(item => {
+      return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
+    });
+  };
+
+  filterItems = (items, filterProp) => {
+    switch (filterProp) {
+      case 'all':
+        return items;
+      case 'active':
+        return items.filter(item => !item.done);
+      case 'done':
+        return TextMetrics.filter(item => item.done);
+      default:
+        return items;
+    }
+  };
 
   render() {
-    const todoItems = this.state.todoData;
-    const { todoData } = this.state;
+    const { todoData, term, filter } = this.state;
 
+    const visibleItems = this.filterItems(
+      this.searchItems(todoData, term),
+      filter,
+    );
     const doneCount = todoData.filter(el => el.done).length;
     const todoCount = todoData.length - doneCount;
 
@@ -76,11 +106,11 @@ export default class App extends Component {
       <div className="app">
         <AppHeader done={doneCount} todo={todoCount} />
         <div className="top-panel">
-          <SearchPanel />
+          <SearchPanel onSearchChange={this.onSearchChange} />
           <StatusFilter />
         </div>
         <TodoList
-          todos={todoItems}
+          todos={visibleItems}
           onDeleted={this.deleteItem}
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}
