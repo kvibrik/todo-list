@@ -3,6 +3,7 @@
   display: flex;
   padding: 1rem;
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .app-header__title {
@@ -10,6 +11,7 @@
   font-weight: 500;
   line-height: 1.2;
   flex-grow: 1;
+  margin-right: 0.5rem;
 }
 
 .app-header__subtitle {
