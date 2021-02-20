@@ -9,9 +9,18 @@ export default class StatusFilter extends Component {
   ];
 
   render() {
+    const { filter, onFilterChange } = this.props;
+
     const buttons = this.buttons.map(({ name, label }) => {
+      const isActive = filter === name;
+      const classNames = isActive ? 'button_active' : 'button_non-active';
+
       return (
-        <button className="button button_non-active" type="button" key={name}>
+        <button
+          className={`button ${classNames}`}
+          type="button"
+          key={name}
+          onClick={() => onFilterChange(name)}>
           {label}
         </button>
       );

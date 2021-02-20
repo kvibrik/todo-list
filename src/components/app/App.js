@@ -4,6 +4,7 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import StatusFilter from '../status-filter';
 import TodoList from '../todo-list';
+import AddItem from '../add-item';
 
 import './App.scss';
 
@@ -78,7 +79,7 @@ export default class App extends Component {
       return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
     });
   };
-
+  // функция для фильтрации элементов
   filterItems = (items, filterProp) => {
     switch (filterProp) {
       case 'all':
@@ -86,10 +87,26 @@ export default class App extends Component {
       case 'active':
         return items.filter(item => !item.done);
       case 'done':
-        return TextMetrics.filter(item => item.done);
+        return items.filter(item => item.done);
       default:
         return items;
     }
+  };
+
+  onFilterChange = filter => {
+    this.setState({ filter });
+  };
+
+  addItem = label => {
+    const newItem = this.createTodoItem(label);
+
+    this.setState(({ todoData }) => {
+      const newData = [...todoData, newItem];
+
+      return {
+        todoData: newData,
+      };
+    });
   };
 
   render() {
@@ -107,7 +124,7 @@ export default class App extends Component {
         <AppHeader done={doneCount} todo={todoCount} />
         <div className="top-panel">
           <SearchPanel onSearchChange={this.onSearchChange} />
-          <StatusFilter />
+          <StatusFilter filter={filter} onFilterChange={this.onFilterChange} />
         </div>
         <TodoList
           todos={visibleItems}
@@ -115,6 +132,7 @@ export default class App extends Component {
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}
         />
+        <AddItem onItemAdd={this.addItem} />
       </div>
     );
   }
