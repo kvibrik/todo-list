@@ -7,8 +7,8 @@ import TodoListItem from '../todo-list-item';
 
 const TodoList = observer(({ store }) => {
   // формируем разметку из каждой задачи в массиве todos
-  const { todos } = store;
-  const elements = todos.map(todo => {
+  const { todosList } = store;
+  const elements = todosList.map(todo => {
     const { id } = todo;
 
     const onDeleted = id => {

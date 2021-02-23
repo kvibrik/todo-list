@@ -6,6 +6,7 @@ import './todo-list-item.scss';
 const TodoListItem = observer(
   ({ todo, onDeleted, onToggleImportant, onToggleDone }) => {
     let classNames = 'todo-list__item';
+    // выделяем стилями, если пункт выполнен
     if (todo.done) {
       classNames += ' todo-list__item_done';
     }
