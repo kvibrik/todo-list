@@ -24,6 +24,27 @@ class TodoStore {
   ];
   term = '';
   filter = 'all';
+  // вспомогательная функция для сериализации задач по поисковой строке
+  searchItems = todos => {
+    if (!this.term.length) return todos;
+
+    return this.todos.filter(todo => {
+      return todo.label.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+    });
+  };
+  // вспомогательная функция для фильтрации задач
+  filterItems = todos => {
+    switch (this.filter) {
+      case 'all':
+        return todos;
+      case 'active':
+        return todos.filter(item => !item.done);
+      case 'done':
+        return todos.filter(item => item.done);
+      default:
+        return todos;
+    }
+  };
 
   constructor() {
     makeObservable(this, {
@@ -38,6 +59,7 @@ class TodoStore {
       toggleImportant: action,
       toggleDone: action,
       searchChange: action,
+      filterChange: action,
     });
   }
   // функция добавления новой задачи
@@ -64,9 +86,13 @@ class TodoStore {
     const idx = this.todos.findIndex(el => el.id === id);
     this.todos[idx].done = !this.todos[idx].done;
   }
-
+  // изменение поисковой строки в сторе
   searchChange(text) {
     this.term = text;
+  }
+  // изменение фильтра
+  filterChange(filter) {
+    this.filter = filter;
   }
   // расчет невыполненных задач
   get todoCount() {
@@ -78,12 +104,7 @@ class TodoStore {
   }
   // получение списка всех задач
   get todosList() {
-    if (this.term.length) {
-      return this.todos.filter(todo => {
-        return todo.label.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-      });
-    }
-    return this.todos;
+    return this.filterItems(this.searchItems(this.todos));
   }
 }
 

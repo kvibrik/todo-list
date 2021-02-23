@@ -14,7 +14,6 @@ const TodoList = observer(({ store }) => {
     const onDeleted = id => {
       store.deleteTodoItem(id);
     };
-
     const onToggleImportant = id => {
       store.toggleImportant(id);
     };
@@ -33,7 +32,15 @@ const TodoList = observer(({ store }) => {
       </li>
     );
   });
-  return <ul className="todo-list">{elements}</ul>;
+
+  if (elements.length) {
+    return <ul className="todo-list">{elements}</ul>;
+  }
+  return (
+    <ul className="todo-list todo-list_zero">
+      <p className="todo-list__label">Not tasks. Please add task</p>
+    </ul>
+  );
 });
 
 export default TodoList;
