@@ -4,7 +4,10 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import StatusFilter from '../status-filter';
 import TodoList from '../todo-list';
-import AddItem from '../add-item';
+// import AddItem from '../add-item';
+import AddTodo from '../add-item';
+
+import todoStore from '../../store/todoStore';
 
 import './App.scss';
 
@@ -116,12 +119,10 @@ export default class App extends Component {
       this.searchItems(todoData, term),
       filter,
     );
-    const doneCount = todoData.filter(el => el.done).length; //считаем, сколько задач выполнено
-    const todoCount = todoData.length - doneCount; //считаем, сколько задач осталось сделать
 
     return (
       <div className="app">
-        <AppHeader done={doneCount} todo={todoCount} />
+        <AppHeader store={todoStore} />
         <div className="top-panel">
           <SearchPanel onSearchChange={this.onSearchChange} />
           <StatusFilter filter={filter} onFilterChange={this.onFilterChange} />
@@ -132,7 +133,7 @@ export default class App extends Component {
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}
         />
-        <AddItem onItemAdd={this.addItem} />
+        <AddTodo store={todoStore} onItemAdd={this.addItem} />
       </div>
     );
   }
