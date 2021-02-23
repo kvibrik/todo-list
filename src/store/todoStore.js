@@ -31,7 +31,7 @@ class TodoStore {
       createTodoItem: action,
     });
   }
-
+  // функция добавления новой задачи
   createTodoItem(label) {
     this.todos.push({
       label,

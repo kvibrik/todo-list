@@ -99,18 +99,6 @@ export default class App extends Component {
   onFilterChange = filter => {
     this.setState({ filter });
   };
-  // функция добавления новой задачи
-  addItem = label => {
-    const newItem = this.createTodoItem(label);
-
-    this.setState(({ todoData }) => {
-      const newData = [...todoData, newItem];
-
-      return {
-        todoData: newData,
-      };
-    });
-  };
 
   render() {
     const { todoData, term, filter } = this.state;
@@ -133,7 +121,7 @@ export default class App extends Component {
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}
         />
-        <AddTodo store={todoStore} onItemAdd={this.addItem} />
+        <AddTodo store={todoStore} />
       </div>
     );
   }
