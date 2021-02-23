@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import './add-item.scss';
 
-const AddTodo = observer(
+const AddItem = observer(
   class AddTodo extends Component {
     state = {
       label: '',
@@ -43,4 +43,4 @@ const AddTodo = observer(
   },
 );
 
-export default AddTodo;
+export default AddItem;

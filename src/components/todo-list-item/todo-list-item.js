@@ -1,31 +1,23 @@
 // Компонент одной задачи списка дел
-import React, { Component } from 'react';
+import React from 'react';
+import { observer } from 'mobx-react';
 import './todo-list-item.scss';
 
-export default class TodoListItem extends Component {
-  render() {
-    const {
-      label,
-      important,
-      done,
-      onDeleted,
-      onToggleImportant,
-      onToggleDone,
-    } = this.props;
+const TodoListItem = observer(
+  ({ todo, onDeleted, onToggleImportant, onToggleDone }) => {
     let classNames = 'todo-list__item';
-    // выделяем стилями, если пункт выполнен
-    if (done) {
+    if (todo.done) {
       classNames += ' todo-list__item_done';
     }
     // выделяем стилями, если пункт важный
-    if (important) {
+    if (todo.important) {
       classNames += ' todo-list__item_important';
     }
 
     return (
       <span className={classNames}>
         <span className="todo-list__label" onClick={onToggleDone}>
-          {label}
+          {todo.label}
         </span>
         <button
           className="button button_non-padding button_red"
@@ -41,5 +33,7 @@ export default class TodoListItem extends Component {
         </button>
       </span>
     );
-  }
-}
+  },
+);
+
+export default TodoListItem;

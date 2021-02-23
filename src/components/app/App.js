@@ -4,8 +4,7 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import StatusFilter from '../status-filter';
 import TodoList from '../todo-list';
-// import AddItem from '../add-item';
-import AddTodo from '../add-item';
+import AddItem from '../add-item';
 
 import todoStore from '../../store/todoStore';
 
@@ -32,44 +31,7 @@ export default class App extends Component {
     term: '',
     filter: 'all',
   };
-  // функция удаления элемента из списка
-  deleteItem = id => {
-    this.setState(({ todoData }) => {
-      const idx = todoData.findIndex(el => el.id === id);
-      const newTodoData = [
-        ...todoData.slice(0, idx),
-        ...todoData.slice(idx + 1),
-      ];
 
-      return {
-        todoData: newTodoData,
-      };
-    });
-  };
-  // функция-обертка для маркировки состояний задачи
-  toggleProp = (arr, id, propName) => {
-    const idx = arr.findIndex(el => el.id === id);
-    const oldItem = arr[idx];
-    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
-
-    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
-  };
-  // отметка заддачи как важной
-  onToggleImportant = id => {
-    this.setState(({ todoData }) => {
-      return {
-        todoData: this.toggleProp(todoData, id, 'important'),
-      };
-    });
-  };
-  // отметка о выполнении задачи
-  onToggleDone = id => {
-    this.setState(({ todoData }) => {
-      return {
-        todoData: this.toggleProp(todoData, id, 'done'),
-      };
-    });
-  };
   // изменение стейта поисковой строки term
   onSearchChange = term => {
     this.setState({ term });
@@ -101,12 +63,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { todoData, term, filter } = this.state;
-
-    const visibleItems = this.filterItems(
-      this.searchItems(todoData, term),
-      filter,
-    );
+    const { filter } = this.state;
 
     return (
       <div className="app">
@@ -115,13 +72,8 @@ export default class App extends Component {
           <SearchPanel onSearchChange={this.onSearchChange} />
           <StatusFilter filter={filter} onFilterChange={this.onFilterChange} />
         </div>
-        <TodoList
-          todos={visibleItems}
-          onDeleted={this.deleteItem}
-          onToggleImportant={this.onToggleImportant}
-          onToggleDone={this.onToggleDone}
-        />
-        <AddTodo store={todoStore} />
+        <TodoList store={todoStore} />
+        <AddItem store={todoStore} />
       </div>
     );
   }
